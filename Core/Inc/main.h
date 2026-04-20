@@ -60,6 +60,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define VBUS_EN_Pin GPIO_PIN_10
+#define VBUS_EN_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 
