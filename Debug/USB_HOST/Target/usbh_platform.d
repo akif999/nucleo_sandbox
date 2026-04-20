@@ -1,10 +1,5 @@
-USB_HOST/Target/usbh_conf.o: ../USB_HOST/Target/usbh_conf.c \
- ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h \
- ../USB_HOST/Target/usbh_conf.h ../Core/Inc/main.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
- ../Core/Inc/stm32h7xx_hal_conf.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h \
+USB_HOST/Target/usbh_platform.o: ../USB_HOST/Target/usbh_platform.c \
+ ../USB_HOST/Target/usbh_platform.h ../USB_HOST/App/usb_host.h \
  ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h \
  ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h753xx.h \
  ../Drivers/CMSIS/Include/core_cm7.h \
@@ -14,6 +9,10 @@ USB_HOST/Target/usbh_conf.o: ../USB_HOST/Target/usbh_conf.c \
  ../Drivers/CMSIS/Include/mpu_armv7.h \
  ../Drivers/CMSIS/Include/cachel1_armv7.h \
  ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h \
+ ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
+ ../Core/Inc/stm32h7xx_hal_conf.h \
+ ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
+ ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h \
@@ -33,23 +32,9 @@ USB_HOST/Target/usbh_conf.o: ../USB_HOST/Target/usbh_conf.c \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hcd.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h \
- ../Drivers/BSP/STM32H7xx_Nucleo/stm32h7xx_nucleo.h \
- ../Core/Inc/stm32h7xx_nucleo_conf.h \
- ../Drivers/BSP/STM32H7xx_Nucleo/stm32h7xx_nucleo_errno.h \
- ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_def.h \
- ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ioreq.h \
- ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h \
- ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_pipes.h \
- ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ctlreq.h \
- ../USB_HOST/Target/usbh_platform.h ../USB_HOST/App/usb_host.h
-../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h:
-../USB_HOST/Target/usbh_conf.h:
-../Core/Inc/main.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
-../Core/Inc/stm32h7xx_hal_conf.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:
+ ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h
+../USB_HOST/Target/usbh_platform.h:
+../USB_HOST/App/usb_host.h:
 ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:
 ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h753xx.h:
 ../Drivers/CMSIS/Include/core_cm7.h:
@@ -59,6 +44,10 @@ USB_HOST/Target/usbh_conf.o: ../USB_HOST/Target/usbh_conf.c \
 ../Drivers/CMSIS/Include/mpu_armv7.h:
 ../Drivers/CMSIS/Include/cachel1_armv7.h:
 ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h:
+../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
+../Core/Inc/stm32h7xx_hal_conf.h:
+../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:
+../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h:
@@ -79,13 +68,3 @@ USB_HOST/Target/usbh_conf.o: ../USB_HOST/Target/usbh_conf.c \
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hcd.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h:
-../Drivers/BSP/STM32H7xx_Nucleo/stm32h7xx_nucleo.h:
-../Core/Inc/stm32h7xx_nucleo_conf.h:
-../Drivers/BSP/STM32H7xx_Nucleo/stm32h7xx_nucleo_errno.h:
-../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_def.h:
-../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ioreq.h:
-../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h:
-../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_pipes.h:
-../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ctlreq.h:
-../USB_HOST/Target/usbh_platform.h:
-../USB_HOST/App/usb_host.h:
