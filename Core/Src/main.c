@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "fatfs.h"
+#include "usb_host.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -47,17 +48,17 @@ COM_InitTypeDef BspCOMInit;
 
 UART_HandleTypeDef huart2;
 
-HCD_HandleTypeDef hhcd_USB_OTG_FS;
-
 /* USER CODE BEGIN PV */
+extern ApplicationTypeDef Appli_state;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USB_OTG_FS_HCD_Init(void);
 static void MX_USART2_UART_Init(void);
+void MX_USB_HOST_Process(void);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -96,9 +97,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USB_OTG_FS_HCD_Init();
   MX_FATFS_Init();
   MX_USART2_UART_Init();
+  MX_USB_HOST_Init();
   /* USER CODE BEGIN 2 */
   FRESULT fs_result;
   UINT bytes_written = 0U;
@@ -129,30 +130,38 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_Delay(1000);
   while (1)
   {
-    if (HAL_UART_Receive(&huart2, &rx_char, 1U, HAL_MAX_DELAY) == HAL_OK)
+    MX_USB_HOST_Process();
+
+    if (HAL_UART_Receive(&huart2, &rx_char, 1U, 10U) == HAL_OK)
     {
+      (void)HAL_UART_Transmit(&huart2, &rx_char, 1U, 100U);
+
+      if (Appli_state != APPLICATION_READY)
+      {
+        continue;
+      }
+
       file_data[0] = (char)rx_char;
       file_data[1] = '\r';
       file_data[2] = '\n';
       file_data[3] = '\0';
 
-      fs_result = f_mount(&USERFatFS, USERPath, 1U);
+      fs_result = f_mount(&USBHFatFS, USBHPath, 1U);
       if (fs_result == FR_OK)
       {
-        fs_result = f_open(&USERFile, file_name, FA_CREATE_ALWAYS | FA_WRITE);
+        fs_result = f_open(&USBHFile, file_name, FA_CREATE_ALWAYS | FA_WRITE);
         if (fs_result == FR_OK)
         {
-          fs_result = f_write(&USERFile, file_data, strlen(file_data), &bytes_written);
+          fs_result = f_write(&USBHFile, file_data, strlen(file_data), &bytes_written);
           (void)fs_result;
           (void)bytes_written;
-          (void)f_close(&USERFile);
+          (void)f_close(&USBHFile);
         }
-        (void)f_mount(NULL, USERPath, 1U);
+        (void)f_mount(NULL, USBHPath, 1U);
       }
-
-      (void)HAL_UART_Transmit(&huart2, &rx_char, 1U, 100U);
     }
 
     /* USER CODE END WHILE */
@@ -258,37 +267,6 @@ static void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */
-
-}
-
-/**
-  * @brief USB_OTG_FS Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USB_OTG_FS_HCD_Init(void)
-{
-
-  /* USER CODE BEGIN USB_OTG_FS_HCD_Init 0 */
-
-  /* USER CODE END USB_OTG_FS_HCD_Init 0 */
-
-  /* USER CODE BEGIN USB_OTG_FS_HCD_Init 1 */
-
-  /* USER CODE END USB_OTG_FS_HCD_Init 1 */
-  hhcd_USB_OTG_FS.Instance = USB_OTG_FS;
-  hhcd_USB_OTG_FS.Init.Host_channels = 16;
-  hhcd_USB_OTG_FS.Init.speed = HCD_SPEED_FULL;
-  hhcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-  hhcd_USB_OTG_FS.Init.phy_itface = HCD_PHY_EMBEDDED;
-  hhcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-  if (HAL_HCD_Init(&hhcd_USB_OTG_FS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_OTG_FS_HCD_Init 2 */
-
-  /* USER CODE END USB_OTG_FS_HCD_Init 2 */
 
 }
 
