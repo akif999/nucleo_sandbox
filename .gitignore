@@ -1,0 +1,21 @@
+# STM32CubeIDE build output
+Debug/
+Release/
+
+# Generic C/C++ build artifacts
+*.o
+*.obj
+*.d
+*.su
+*.cyclo
+*.map
+*.list
+*.elf
+*.bin
+*.hex
+
+# Generated dependency/objects lists
+objects.mk
+objects.list
+sources.mk
+subdir.mk
